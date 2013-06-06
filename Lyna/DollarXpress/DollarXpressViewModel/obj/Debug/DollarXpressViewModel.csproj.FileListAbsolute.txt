@@ -1,0 +1,7 @@
+C:\git\Lyna\Lyna\DollarXpress\DollarXpressViewModel\bin\Debug\DollarXpressViewModel.dll
+C:\git\Lyna\Lyna\DollarXpress\DollarXpressViewModel\bin\Debug\DollarXpressViewModel.pdb
+C:\git\Lyna\Lyna\DollarXpress\DollarXpressViewModel\bin\Debug\DollarXpressDataModel.dll
+C:\git\Lyna\Lyna\DollarXpress\DollarXpressViewModel\bin\Debug\DollarXpressDataModel.pdb
+C:\git\Lyna\Lyna\DollarXpress\DollarXpressViewModel\obj\Debug\ResolveAssemblyReference.cache
+C:\git\Lyna\Lyna\DollarXpress\DollarXpressViewModel\obj\Debug\DollarXpressViewModel.dll
+C:\git\Lyna\Lyna\DollarXpress\DollarXpressViewModel\obj\Debug\DollarXpressViewModel.pdb

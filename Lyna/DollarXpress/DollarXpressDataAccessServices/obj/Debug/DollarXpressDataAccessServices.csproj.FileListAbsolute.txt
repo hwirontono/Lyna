@@ -1,0 +1,7 @@
+C:\git\Lyna\Lyna\DollarXpress\DollarXpressDataAccessServices\bin\Debug\DollarXpressDataAccessServices.dll
+C:\git\Lyna\Lyna\DollarXpress\DollarXpressDataAccessServices\bin\Debug\DollarXpressDataAccessServices.pdb
+C:\git\Lyna\Lyna\DollarXpress\DollarXpressDataAccessServices\bin\Debug\DollarXpressDataModel.dll
+C:\git\Lyna\Lyna\DollarXpress\DollarXpressDataAccessServices\bin\Debug\DollarXpressDataModel.pdb
+C:\git\Lyna\Lyna\DollarXpress\DollarXpressDataAccessServices\obj\Debug\ResolveAssemblyReference.cache
+C:\git\Lyna\Lyna\DollarXpress\DollarXpressDataAccessServices\obj\Debug\DollarXpressDataAccessServices.dll
+C:\git\Lyna\Lyna\DollarXpress\DollarXpressDataAccessServices\obj\Debug\DollarXpressDataAccessServices.pdb

@@ -1,0 +1,351 @@
+﻿@{
+    ViewBag.Title = "Order";
+}
+
+<h4>Invoice</h4>
+
+<form class="form-horizontal">
+    
+    <div class="row-fluid">
+
+        <div id="customerRegion" class="span4">
+            <div class="control-group">
+                <label class="control-label" for="inputEmail">Name</label>
+                <div class="controls">
+                    <input type="text" id="txtName" class="input-medium" placeholder="Name" data-bind="value: SelectedCustomer().FullName"/> <a id="btnLookUpByName" class="btn btn-small" href="#" title="FullName" data-bind="click: getCustomers"><i title="FullName" class="icon-search"></i></a>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputEmail">Nickname</label>
+                <div class="controls">
+                    <input type="text" id="txtNickName" class="input-medium" placeholder="Nickname" data-bind="value: SelectedCustomer().Nickname"/> <a id="btnLookUpByNickname" class="btn btn-small" href="#" title="Nickname" data-bind="click: getCustomers"><i title="Nickname" class="icon-search"></i></a>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputPassword">Address</label>
+                <div class="controls">
+                    <input type="text" id="txtAddress" class="input-medium" placeholder="Address" data-bind="value: SelectedCustomer().Address"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputPassword">Phone</label>
+                <div class="controls">
+                    <input type="text" id="txtPhone" class="input-medium" placeholder="Phone" data-bind="value: SelectedCustomer().PhoneNumber"/> <a id="btnLookUpByPhone" class="btn btn-small" href="#" title="PhoneNumber" data-bind="click: getCustomers"><i title="PhoneNumber" class="icon-search"></i></a>
+                </div>
+            </div>
+        </div>
+        <div id="transactionRegion" class="span8">
+            <button id="btnAdd" class="btn btn-primary pull-right" type="button" data-bind="click: AddTransaction">Add Transaction <i class="icon-plus-sign icon-white"></i></button>
+            <div class="control-group">
+                
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Rate</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-body" data-bind="foreach: Transactions">
+                        <tr>
+                            <td>
+                                <select id="Select1" class="input-small" data-bind="value : Type">
+                                    <option value="Jual">Jual</option>
+                                    <option value="Beli">Beli</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select id="Select2" class="input-small" data-bind="value: From, disable: FromDisabled">
+                                    <option value="USD">USD</option>
+                                    <option value="SGD">SGD</option>
+                                    <option value="Rp">Rp</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select id="Select3" class="input-small" data-bind="value: To, disable: ToDisabled">
+                                    <option value="USD">USD</option>
+                                    <option value="SGD">SGD</option>
+                                    <option value="Rp">Rp</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" id="txtRate" class="input-small" placeholder="Rate" data-bind="value: Rate" />
+                            </td>
+                            <td>
+                                <input type="text" id="txtQuantity" class="input-small" placeholder="Quantity" data-bind="value: Quantity" />
+                            </td>
+                            <td>
+                                <input type="text" id="txtTotal" class="input-small" placeholder="Total" data-bind="value: Total, css: TypeCSS" disabled/>
+                            </td>
+                            <td><a href="#" data-bind="click: $parent.RemoveTransaction" style="font-size:11px;"><i class="icon-remove"></i>Remove</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <span class="subtotal span9">Subtotal:</span> <span class="subtotal-value span2" data-bind="text: Subtotal, css: SubtotalCSS"></span>
+                </div>
+            </div>
+        </div>
+        <div id="stockRegion" class="span6 hide">
+            This is the RIGHT DIV
+        </div>
+    </div>
+   
+</form>
+
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Customer Lookup</h3>
+    </div>
+    <div class="modal-body">
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Full Name</th>
+                        <th>Nickname</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                    </tr>
+                </thead>
+                <tbody class="table-body" data-bind="foreach: Customers">
+                    <tr data-bind="click: $parent.SelectedRow">
+                        <td data-bind="text: CustomerID"></td>
+                        <td data-bind="text: FullName"></td>
+                        <td data-bind="text: Nickname"></td>
+                        <td data-bind="text: Address"></td>
+                        <td data-bind="text: PhoneNumber"></td>
+                    </tr>
+                </tbody>
+                
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var Customer = function (CustomerID, FullName, Nickname, Address, PhoneNumber) {
+        var self = this;
+
+        self.CustomerID = ko.observable(CustomerID);
+        self.FullName = ko.observable(FullName);
+        self.Nickname = ko.observable(Nickname);
+        self.Address = ko.observable(Address);
+        self.PhoneNumber = ko.observable(PhoneNumber);
+    };
+
+    var CustomerViewModel = function () {
+        var self = this;
+
+        self.Customers = new ko.observableArray();
+        self.SelectedCustomer = ko.observable(Customer);
+
+        self.SelectedRow = function () {
+            //console.log(this.FullName);
+            self.SelectedCustomer(this);
+            $('#myModal').modal('hide')
+            //console.log(self.SelectedCustomer().FullName());
+        }
+
+        self.getCustomers = function (a, event) {
+            //console.log(event.target);
+            //Clear data
+            self.Customers.removeAll();
+
+            var fieldname = $(event.target).attr('Title');
+            var keyword = '';
+            if (fieldname == 'FullName')
+                keyword = $('#txtName').val();
+            else if (fieldname == 'Nickname')
+                keyword = $('#txtNickName').val();
+            else if (fieldname == 'PhoneNumber')
+                keyword = $('#txtPhone').val();
+
+            //Pull data from server
+            var url = '@Url.Action("GetCustomers", "Customer")';
+
+            var cl = new CustomerLookup();
+            cl.FieldName = fieldname;
+            cl.KeyWord = keyword;
+
+            $.post(url, cl, function (data) {
+                $.each(data, function (key) {
+                    self.Customers.push(
+                        new Customer(
+                            data[key].CustomerID,
+                            data[key].FullName,
+                            data[key].Nickname,
+                            data[key].Address,
+                            data[key].PhoneNumber
+                        )
+                    );
+                });
+
+                //Open Modal
+                $("#myModal").modal();
+
+                //Highlight
+                $(".table-body tr").hover(function () {
+                    $(this).css("background", "yellow");
+                },
+                    function () {
+                        $(this).css("background", "");
+                    }
+                );
+            });
+
+            //            $.ajax({
+            //                type: "POST",
+            //                url: url,
+            //                data: JSON.stringify(cl),
+            //                contentType: "application/json; charset=utf-8",
+            //                dataType: "json",
+            //                success: function (data) {
+            //                    $.each(data, function (key) {
+            //                        self.Customers.push(
+            //                            new Customer(
+            //                                data[key].CustomerID,
+            //                                data[key].FullName,
+            //                                data[key].Nickname,
+            //                                data[key].Address,
+            //                                data[key].PhoneNumber
+            //                            )
+            //                        );
+            //                    });
+
+            //                    //Open Modal
+            //                    $("#myModal").modal();
+
+            //                    //Highlight
+            //                    $(".table-body tr").hover(function () {
+            //                        $(this).css("background", "yellow");
+            //                    },
+            //                    function () {
+            //                        $(this).css("background", "");
+            //                    }
+            //                    );
+            //                },
+            //                error: function (e) {
+            //                    console.log(e);
+            //                }
+
+            //            });
+
+
+
+        };
+    };
+
+    var CustomerLookup = function () {
+        this.FieldName;
+        this.KeyWord;
+    };
+
+    var Transaction = function (Type, Rate, Quantity) {
+        var self = this;
+
+        self.Type = ko.observable(Type);
+        self.TypeCSS = ko.computed(function () {
+            if (self.Type() == "Jual") {
+                return "text-green";
+            } else {
+                return "text-red";
+            }
+        });
+        self.From = ko.computed(function () {
+            if (self.Type() == "Beli") {
+                return "Rp";
+            } else {
+                return "USD";
+            }
+        });
+        self.FromDisabled = ko.computed(function () {
+            if (self.Type() == "Beli") {
+                return true;
+            } else {
+                return false;
+            }
+        });
+        self.To = ko.computed(function () {
+            if (self.Type() == "Jual") {
+                return "Rp";
+            } else {
+                return "USD";
+            }
+        });
+        self.ToDisabled = ko.computed(function () {
+            if (self.Type() == "Jual") {
+                return true;
+            } else {
+                return false;
+            }
+        });
+        self.Rate = ko.observable(Rate);
+        self.Quantity = ko.observable(Quantity);
+        self.Total = ko.computed(function () {
+            var variable = 1;
+
+            if (self.Type() == "Jual")
+                variable = 1;
+            else
+                variable = -1;
+
+            return self.Rate() * self.Quantity() * variable;
+        });
+    };
+
+    var InvoiceViewModel = function () {
+        var self = this;
+
+        self.Transactions = new ko.observableArray();
+
+        self.AddTransaction = function () {
+            self.Transactions.push(new Transaction("Jual", 9000, 0));
+        };
+
+        self.RemoveTransaction = function (data) {
+            self.Transactions.remove(data);
+        };
+
+        self.Subtotal = ko.computed(function () {
+            var subtotal = 0;
+            ko.utils.arrayForEach(self.Transactions(), function (trans) {
+                return subtotal += trans.Total();
+            });
+
+            return subtotal;
+        });
+
+        self.SubtotalCSS = ko.computed(function () {
+            if (self.Subtotal() > 0)
+                return "text-green";
+            else
+                return "text-red";
+        });
+
+        self.Transactions.push(new Transaction("Beli", 9000, 0));
+
+    };
+
+
+    $(function () {
+        var cvm = new CustomerViewModel();
+        ko.applyBindings(cvm, document.getElementById("customerRegion"));
+        ko.applyBindings(cvm, document.getElementById("myModal"));
+
+        var ivm = new InvoiceViewModel();
+         ko.applyBindings(ivm, document.getElementById("transactionRegion"));
+
+    });
+</script>
+

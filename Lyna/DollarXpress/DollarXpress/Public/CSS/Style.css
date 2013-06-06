@@ -69,7 +69,7 @@ body {
 /*STOCK REGION*/
 #stockRegion:after {
 	content: "Stock and Rate";
-    background-color: #D1E751;
+    background-color: #F5F5F5;
     border: 1px solid #DDDDDD;
     border-radius: 4px 0 4px 0;
     color: #9DA0A4;
@@ -91,7 +91,7 @@ body {
 /*TRANSACTION REGION*/
 #transactionRegion:after {
 	content: "Order";
-    background-color: #4DBCE9;
+    background-color: #F5F5F5;
     border: 1px solid #DDDDDD;
     border-radius: 4px 0 4px 0;
     color: #9DA0A4;
@@ -108,6 +108,33 @@ body {
 	border: 1px solid #ccc;
 	padding: 40px 10px 10px 10px;
 	position: relative;
-	margin-top: 20px;
+	/*margin-top: 20px;*/
 }
 
+#btnAdd 
+{
+	position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.text-red 
+{
+	color: #B94A48 !important;
+}
+.text-green
+{
+	color: #468847 !important;
+}
+
+.subtotal 
+{
+	font-weight: bold;
+	/*padding-right: 50px;*/
+	text-align: right;
+}
+.subtotal-value
+{
+	font-weight: bold;
+	/*padding-right: 100px;*/
+}
